@@ -48,6 +48,23 @@ const calculateHospitalBedsByRequestedTime = (
   return availableHospitalBeds - severeCasesByRequestedTime;
 };
 
+const calculateCasesForICUByRequestedTime = (
+  percent,
+  infectionsByRequestedTime
+) => (percent / 100) * infectionsByRequestedTime;
+
+const calculateCasesForVentilatorsByRequestedTime = (
+  percent,
+  infectionsByRequestedTime
+) => (percent / 100) * infectionsByRequestedTime;
+
+const calculateDollarsInFlight = (
+  infectionsByRequestedTime,
+  peoplePercent,
+  avgIncome,
+  days
+) => infectionsByRequestedTime * peoplePercent * avgIncome * days;
+
 const covid19ImpactEstimator = (data) => {
   const input = data;
   const impact = {};
@@ -90,6 +107,40 @@ const covid19ImpactEstimator = (data) => {
   severeImpact.hospitalBedsByRequestedTime = calculateHospitalBedsByRequestedTime(
     severeImpact.severeCasesByRequestedTime,
     input.totalHospitalBeds
+  );
+
+  impact.casesForICUByRequestedTime = calculateCasesForICUByRequestedTime(
+    5,
+    impact.infectionsByRequestedTime
+  );
+
+  severeImpact.casesForICUByRequestedTime = calculateCasesForICUByRequestedTime(
+    5,
+    severeImpact.infectionsByRequestedTime
+  );
+
+  impact.casesForVentilatorsByRequestedTime = calculateCasesForVentilatorsByRequestedTime(
+    2,
+    impact.infectionsByRequestedTime
+  );
+
+  severeImpact.casesForVentilatorsByRequestedTime = calculateCasesForVentilatorsByRequestedTime(
+    2,
+    severeImpact.infectionsByRequestedTime
+  );
+
+  impact.dollarsInFlight = calculateDollarsInFlight(
+    impact.infectionsByRequestedTime,
+    input.avgDailyIncomePopulation,
+    input.avgDailyIncomeInUSD,
+    daysToElapse
+  );
+
+  severeImpact.dollarsInFlight = calculateDollarsInFlight(
+    severeImpact.infectionsByRequestedTime,
+    input.avgDailyIncomePopulation,
+    input.avgDailyIncomeInUSD,
+    daysToElapse
   );
 
   return {
