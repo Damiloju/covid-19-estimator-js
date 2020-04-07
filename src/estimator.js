@@ -15,7 +15,7 @@ const convertToDays = (periodType, timeToElapse) => {
   return timeToElapse;
 };
 
-const calculateFactorBasedOnDays = (days) => Math.floor(days * 3);
+const calculateFactorBasedOnDays = (days) => Math.floor(days / 3);
 
 const calculateCurrentlyInfected = (reportedCases, impactLevel) => {
   if (impactLevel === IMPACTLEVEL.NORMAL) {
