@@ -3,6 +3,20 @@ const IMPACTLEVEL = {
   SEVERE: 2
 };
 
+const convertToDays = (periodType, timeToElapse) => {
+  if (periodType === 'weeks') {
+    return timeToElapse * 7;
+  }
+
+  if (periodType === 'months') {
+    return timeToElapse * 30;
+  }
+
+  return timeToElapse;
+};
+
+const calculateFactorBasedOnDays = (days) => Math.floor(days * 3);
+
 const calculateCurrentlyInfected = (reportedCases, impactLevel) => {
   if (impactLevel === IMPACTLEVEL.NORMAL) {
     return reportedCases * 10;
@@ -25,6 +39,9 @@ const covid19ImpactEstimator = (data) => {
   const impact = {};
   const severeImpact = {};
 
+  const daysToElapse = convertToDays(input.periodType, input.timeToElapse);
+  const factor = calculateFactorBasedOnDays(daysToElapse);
+
   impact.currentlyInfected = calculateCurrentlyInfected(input.reportedCases, 1);
   severeImpact.currentlyInfected = calculateCurrentlyInfected(
     input.reportedCases,
@@ -33,12 +50,12 @@ const covid19ImpactEstimator = (data) => {
 
   impact.infectionsByRequestedTime = calculateinfectionsByRequestedTime(
     impact.currentlyInfected,
-    9
+    factor
   );
 
   severeImpact.infectionsByRequestedTime = calculateinfectionsByRequestedTime(
     severeImpact.currentlyInfected,
-    9
+    factor
   );
 
   return {
