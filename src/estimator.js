@@ -63,7 +63,13 @@ const calculateDollarsInFlight = (
   peoplePercent,
   avgIncome,
   days
-) => infectionsByRequestedTime * peoplePercent * avgIncome * days;
+) => {
+  const peoplePercent2 = Number(peoplePercent);
+  const avgIncome2 = Number(avgIncome);
+  const days2 = Number(days);
+
+  return infectionsByRequestedTime * peoplePercent2 * avgIncome2 * days2;
+};
 
 const covid19ImpactEstimator = (data) => {
   const input = data;
