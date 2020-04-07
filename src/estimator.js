@@ -34,6 +34,20 @@ const calculateinfectionsByRequestedTime = (currentlyInfected, factor) => {
   return currentlyInfected * infectionQuotient;
 };
 
+const calculateSevereCasesByRequestedTime = (
+  percent,
+  infectionsByRequestedTime
+) => (percent / 100) * infectionsByRequestedTime;
+
+const calculateHospitalBedsByRequestedTime = (
+  severeCasesByRequestedTime,
+  totalHospitalBeds
+) => {
+  const availableHospitalBeds = (35 / 100) * totalHospitalBeds;
+
+  return availableHospitalBeds - severeCasesByRequestedTime;
+};
+
 const covid19ImpactEstimator = (data) => {
   const input = data;
   const impact = {};
@@ -56,6 +70,26 @@ const covid19ImpactEstimator = (data) => {
   severeImpact.infectionsByRequestedTime = calculateinfectionsByRequestedTime(
     severeImpact.currentlyInfected,
     factor
+  );
+
+  impact.severeCasesByRequestedTime = calculateSevereCasesByRequestedTime(
+    15,
+    impact.infectionsByRequestedTime
+  );
+
+  severeImpact.severeCasesByRequestedTime = calculateSevereCasesByRequestedTime(
+    15,
+    severeImpact.infectionsByRequestedTime
+  );
+
+  impact.hospitalBedsByRequestedTime = calculateHospitalBedsByRequestedTime(
+    impact.severeCasesByRequestedTime,
+    input.totalHospitalBeds
+  );
+
+  severeImpact.hospitalBedsByRequestedTime = calculateHospitalBedsByRequestedTime(
+    severeImpact.severeCasesByRequestedTime,
+    input.totalHospitalBeds
   );
 
   return {
