@@ -63,7 +63,14 @@ const calculateDollarsInFlight = (
   peoplePercent,
   avgIncome,
   days
-) => infectionsByRequestedTime * peoplePercent * avgIncome * days;
+) => {
+  const result = Number.parseFloat(
+    infectionsByRequestedTime * peoplePercent * avgIncome * days
+  ).toFixed(2);
+
+  return result;
+};
+
 const covid19ImpactEstimator = (data) => {
   const input = data;
   const impact = {};
@@ -128,22 +135,18 @@ const covid19ImpactEstimator = (data) => {
     severeImpact.infectionsByRequestedTime
   );
 
-  impact.dollarsInFlight = Number(
-    calculateDollarsInFlight(
-      impact.infectionsByRequestedTime,
-      input.region.avgDailyIncomePopulation,
-      input.region.avgDailyIncomeInUSD,
-      daysToElapse
-    )
+  impact.dollarsInFlight = calculateDollarsInFlight(
+    impact.infectionsByRequestedTime,
+    input.region.avgDailyIncomePopulation,
+    input.region.avgDailyIncomeInUSD,
+    daysToElapse
   );
 
-  severeImpact.dollarsInFlight = Number(
-    calculateDollarsInFlight(
-      severeImpact.infectionsByRequestedTime,
-      input.region.avgDailyIncomePopulation,
-      input.region.avgDailyIncomeInUSD,
-      daysToElapse
-    )
+  severeImpact.dollarsInFlight = calculateDollarsInFlight(
+    severeImpact.infectionsByRequestedTime,
+    input.region.avgDailyIncomePopulation,
+    input.region.avgDailyIncomeInUSD,
+    daysToElapse
   );
 
   return {
@@ -153,20 +156,20 @@ const covid19ImpactEstimator = (data) => {
   };
 };
 
-export default covid19ImpactEstimator;
+// export default covid19ImpactEstimator;
 
-// console.log(
-//   covid19ImpactEstimator({
-//     region: {
-//       name: 'Africa',
-//       avgAge: 19.7,
-//       avgDailyIncomeInUSD: 5,
-//       avgDailyIncomePopulation: 0.71
-//     },
-//     periodType: 'days',
-//     timeToElapse: 58,
-//     reportedCases: 674,
-//     population: 66622705,
-//     totalHospitalBeds: 1380614
-//   })
-// );
+console.log(
+  covid19ImpactEstimator({
+    region: {
+      name: 'Africa',
+      avgAge: 19.7,
+      avgDailyIncomeInUSD: 5,
+      avgDailyIncomePopulation: 0.71
+    },
+    periodType: 'days',
+    timeToElapse: 58,
+    reportedCases: 674,
+    population: 66622705,
+    totalHospitalBeds: 1380614
+  })
+);
