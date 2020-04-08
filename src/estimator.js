@@ -64,11 +64,14 @@ const calculateDollarsInFlight = (
   avgIncome,
   days
 ) => {
+  const infectionsByRequestedTime2 = Number(infectionsByRequestedTime);
   const peoplePercent2 = Number(peoplePercent);
   const avgIncome2 = Number(avgIncome);
   const days2 = Number(days);
 
-  return infectionsByRequestedTime * peoplePercent2 * avgIncome2 * days2;
+  // console.log(infectionsByRequestedTime, peoplePercent, avgIncome, days);
+
+  return infectionsByRequestedTime2 * peoplePercent2 * avgIncome2 * days2;
 };
 
 const covid19ImpactEstimator = (data) => {
@@ -144,8 +147,8 @@ const covid19ImpactEstimator = (data) => {
 
   severeImpact.dollarsInFlight = calculateDollarsInFlight(
     severeImpact.infectionsByRequestedTime,
-    input.avgDailyIncomePopulation,
-    input.avgDailyIncomeInUSD,
+    input.region.avgDailyIncomePopulation,
+    input.region.avgDailyIncomeInUSD,
     daysToElapse
   );
 
@@ -157,3 +160,19 @@ const covid19ImpactEstimator = (data) => {
 };
 
 export default covid19ImpactEstimator;
+
+// console.log(
+//   covid19ImpactEstimator({
+//     region: {
+//       name: 'Africa',
+//       avgAge: 19.7,
+//       avgDailyIncomeInUSD: 5,
+//       avgDailyIncomePopulation: 0.71
+//     },
+//     periodType: 'days',
+//     timeToElapse: 58,
+//     reportedCases: 674,
+//     population: 66622705,
+//     totalHospitalBeds: 1380614
+//   })
+// );
