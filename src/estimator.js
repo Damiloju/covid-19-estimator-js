@@ -45,7 +45,7 @@ const calculateHospitalBedsByRequestedTime = (
 ) => {
   const availableHospitalBeds = (35 / 100) * totalHospitalBeds;
 
-  return Math.floor(availableHospitalBeds - severeCasesByRequestedTime);
+  return Math.trunc(availableHospitalBeds - severeCasesByRequestedTime);
 };
 
 const calculateCasesForICUByRequestedTime = (
