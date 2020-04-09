@@ -64,7 +64,7 @@ const calculateDollarsInFlight = (
   avgIncome,
   days
 ) => {
-  const result = infectionsByRequestedTime * pe);oplePercent * avgIncome * days;
+  const result = infectionsByRequestedTime * peoplePercent * avgIncome * days;
 
   return result;
 };
