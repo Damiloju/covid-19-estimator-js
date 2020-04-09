@@ -51,12 +51,12 @@ const calculateHospitalBedsByRequestedTime = (
 const calculateCasesForICUByRequestedTime = (
   percent,
   infectionsByRequestedTime
-) => Math.trunc((percent / 100) * infectionsByRequestedTime);
+) => (percent / 100) * infectionsByRequestedTime;
 
 const calculateCasesForVentilatorsByRequestedTime = (
   percent,
   infectionsByRequestedTime
-) => Math.trunc((percent / 100) * infectionsByRequestedTime);
+) => (percent / 100) * infectionsByRequestedTime;
 
 const calculateDollarsInFlight = (
   infectionsByRequestedTime,
