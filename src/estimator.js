@@ -37,7 +37,7 @@ const calculateinfectionsByRequestedTime = (currentlyInfected, factor) => {
 const calculateSevereCasesByRequestedTime = (
   percent,
   infectionsByRequestedTime
-) => (percent / 100) * infectionsByRequestedTime;
+) => Math.floor((percent / 100) * infectionsByRequestedTime);
 
 const calculateHospitalBedsByRequestedTime = (
   severeCasesByRequestedTime,
@@ -45,7 +45,7 @@ const calculateHospitalBedsByRequestedTime = (
 ) => {
   const availableHospitalBeds = (35 / 100) * totalHospitalBeds;
 
-  return availableHospitalBeds - severeCasesByRequestedTime;
+  return Math.floor(availableHospitalBeds - severeCasesByRequestedTime);
 };
 
 const calculateCasesForICUByRequestedTime = (
