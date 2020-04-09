@@ -66,7 +66,7 @@ const calculateDollarsInFlight = (
 ) => {
   const result = infectionsByRequestedTime * peoplePercent * avgIncome * days;
 
-  return +Number(result).toFixed(2);
+  return result;
 };
 
 const covid19ImpactEstimator = (data) => {
@@ -133,24 +133,18 @@ const covid19ImpactEstimator = (data) => {
     severeImpact.infectionsByRequestedTime
   );
 
-  const dollarsInFlightImpact = +Number(
-    calculateDollarsInFlight(
-      impact.infectionsByRequestedTime,
-      input.region.avgDailyIncomePopulation,
-      input.region.avgDailyIncomeInUSD,
-      daysToElapse
-    )
-  ).toFixed(2);
-
-  const dollarsInFlightSevere = +Number(
-    calculateDollarsInFlight(
-      severeImpact.infectionsByRequestedTime,
-      input.region.avgDailyIncomePopulation,
-      input.region.avgDailyIncomeInUSD,
-      daysToElapse
-    )
-  ).toFixed(2);
-
+  const dollarsInFlightImpact = calculateDollarsInFlight(
+    impact.infectionsByRequestedTime,
+    input.region.avgDailyIncomePopulation,
+    input.region.avgDailyIncomeInUSD,
+    daysToElapse
+  );
+  const dollarsInFlightSevere = calculateDollarsInFlight(
+    severeImpact.infectionsByRequestedTime,
+    input.region.avgDailyIncomePopulation,
+    input.region.avgDailyIncomeInUSD,
+    daysToElapse
+  );
   severeImpact.dollarsInFlight = dollarsInFlightSevere;
   impact.dollarsInFlight = dollarsInFlightImpact;
 
