@@ -64,7 +64,7 @@ const calculateDollarsInFlight = (
   avgIncome,
   days
 ) => {
-  const result = infectionsByRequestedTime * peoplePercent * avgIncome * days;
+  const result = (infectionsByRequestedTime * peoplePercent * avgIncome) / days;
 
   return result;
 };
@@ -146,12 +146,12 @@ const covid19ImpactEstimator = (data) => {
     input.region.avgDailyIncomeInUSD,
     daysToElapse
   );
-  severeImpact.dollarsInFlight = Math.trunc(dollarsInFlightSevere);
-  impact.dollarsInFlight = Math.trunc(dollarsInFlightImpact);
+  severeImpact.dollarsInFlight = dollarsInFlightSevere;
+  impact.dollarsInFlight = dollarsInFlightImpact;
 
-  console.log(input);
-  console.log(impact);
-  // console.log(severeImpact);
+  // console.log(input);
+  // console.log(impact);
+  // // console.log(severeImpact);
 
   return {
     data: input,
