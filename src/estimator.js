@@ -146,8 +146,8 @@ const covid19ImpactEstimator = (data) => {
     input.region.avgDailyIncomeInUSD,
     daysToElapse
   );
-  severeImpact.dollarsInFlight = dollarsInFlightSevere;
-  impact.dollarsInFlight = dollarsInFlightImpact;
+  severeImpact.dollarsInFlight = Math.trunc(dollarsInFlightSevere);
+  impact.dollarsInFlight = Math.trunc(dollarsInFlightImpact);
 
   // console.log(input);
   // console.log(impact);
