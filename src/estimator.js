@@ -56,7 +56,7 @@ const calculateCasesForICUByRequestedTime = (
 const calculateCasesForVentilatorsByRequestedTime = (
   percent,
   infectionsByRequestedTime
-) => (percent / 100) * infectionsByRequestedTime;
+) => Math.trunc((percent / 100) * infectionsByRequestedTime);
 
 const calculateDollarsInFlight = (
   infectionsByRequestedTime,
@@ -151,7 +151,7 @@ const covid19ImpactEstimator = (data) => {
 
   console.log(input);
   console.log(impact);
-  console.log(severeImpact);
+  // console.log(severeImpact);
 
   return {
     data: input,
@@ -167,13 +167,13 @@ export default covid19ImpactEstimator;
 //     region: {
 //       name: 'Africa',
 //       avgAge: 19.7,
-//       avgDailyIncomeInUSD: 5,
-//       avgDailyIncomePopulation: 0.71
+//       avgDailyIncomeInUSD: 2,
+//       avgDailyIncomePopulation: 0.62
 //     },
-//     periodType: 'days',
-//     timeToElapse: 58,
-//     reportedCases: 674,
-//     population: 66622705,
-//     totalHospitalBeds: 1380614
+//     reportedCases: 90,
+//     population: 2244206,
+//     totalHospitalBeds: 80416,
+//     timeToElapse: 9,
+//     periodType: 'weeks'
 //   })
 // );
